@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HmDashboard | Ray Chen</title>
+  <meta name="description" content="A full-stack project that acquires, processes, analyzes, and visualizes all app and atomic service data from the HarmonyOS app market.">
+  <meta name="keywords" content="HarmonyOS, App Dashboard, data analysis, Rust, ArkTS, full-stack project, Open Atom competition, app market data">
+  <meta name="author" content="Ray Chen">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="https://rayawa.top/en/">
+
+  <link rel="alternate" hreflang="zh-CN" href="https://rayawa.top/">
+  <link rel="alternate" hreflang="en" href="https://rayawa.top/en/">
+  <link rel="alternate" hreflang="fr" href="https://rayawa.top/fr/">
+  <link rel="alternate" hreflang="x-default" href="https://rayawa.top/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rayawa.top/en/">
+  <meta property="og:title" content="HmDashboard | HarmonyOS App Analysis Platform">
+  <meta property="og:description" content=" A full-stack project that acquires, processes, analyzes, and visualizes all app and atomic service data from the HarmonyOS app market.">
+  <meta property="og:image" content="https://rayawa.top/app_icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Ray Chen's Website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://rayawa.top/en/">
+  <meta name="twitter:title" content="HmDashboard | HarmonyOS App Analysis Platform">
+  <meta name="twitter:description" content=" A full-stack project that acquires, processes, analyzes, and visualizes all app and atomic service data from the HarmonyOS app market.">
+  <meta name="twitter:image" content="https://rayawa.top/app_icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../dashboard.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%);
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    #particles-js {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .page { position: relative; z-index: 1; }
+
+    .site-navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      transition: all 0.3s ease;
+    }
+    .nav-container {
+      max-width: 1180px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.8rem 1.5rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: #f8fafc;
+      font-weight: 700; font-size: 1.1rem;
+    }
+    .nav-logo i { color: #38bdf8; }
+    .nav-links {
+      display: flex; align-items: center; gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: rgba(226, 232, 240, 0.85);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: #7dd3fc; }
+    .lang-switch {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .lang-btn {
+      background: transparent; border: 1px solid rgba(148, 163, 184, 0.25);
+      color: rgba(226, 232, 240, 0.8); border-radius: 6px;
+      padding: 0.3rem 0.6rem; font-size: 0.78rem; cursor: pointer;
+      transition: all 0.3s ease; font-weight: 500;
+    }
+    .lang-btn:hover, .lang-btn.active {
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #7dd3fc; background: rgba(56, 189, 248, 0.1);
+    }
+    .mobile-menu-btn {
+      display: none; background: transparent; border: none;
+      color: #f8fafc; font-size: 1.3rem; cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .lang-switch { display: none; }
+      .mobile-menu-btn { display: block; }
+      .nav-container.open .nav-links {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(2, 6, 23, 0.95); padding: 1rem 1.5rem;
+        gap: 1rem; border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      }
+      .nav-container.open .lang-switch {
+        display: flex; padding: 0.5rem 0 0;
+      }
+    }
+
+    .site-footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 2rem 1.5rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      color: rgba(148, 163, 184, 0.7); font-size: 0.82rem;
+    }
+    .site-footer a { color: rgba(125, 211, 252, 0.8); text-decoration: none; }
+    .site-footer a:hover { color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <nav class="site-navbar" id="navbar">
+    <div class="nav-container" id="navContainer">
+      <a href="../" class="nav-logo"><i class="fas fa-chart-line"></i> HmDashboard</a>
+      <ul class="nav-links">
+        <li><a href="#metricsGrid">Metrics</a></li>
+        <li><a href="#contact-us">Contact</a></li>
+      </ul>
+      <div class="lang-switch">
+        <button class="lang-btn" onclick="location.href='../'">中文</button>
+        <button class="lang-btn active" onclick="location.href='./'">EN</button>
+        <button class="lang-btn" onclick="location.href='../fr/'">FR</button>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <div id="particles-js"></div>
+
+  <main class="page dashboard-page">
+    <!-- 第一部分：标题、图标 -->
+    <section class="hero-section">
+      <div class="hero-header">
+        <div class="app-icon-wrapper">
+          <img src="../app_icon.png" alt="App Icon" class="app-icon">
+        </div>
+        <div class="hero-content">
+          <h1  class="hero-title">HmDashboard</h1>
+          <p class="hero-lead">
+            <span >Crafted by the </span>
+            <a href="#contact-us" class="hero-link" >Harmony Dashboard Team</a>
+            <span >. A full-stack project that acquires, processes, analyzes, and visualizes all app and atomic service data from the HarmonyOS app market.</span>
+          </p>
+        </div>
+      </div>
+      
+      <div class="hero-tags-wrapper">
+        <div class="hero-tags">
+          <span class="hero-tag" >Rust-Powered</span>
+          <span class="hero-tag" >Powerful Database</span>
+          <span class="hero-tag" >Multi-Platform Support</span>
+          <span class="hero-tag" >OpenAtom Contest Award Winner</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第二部分：访问数据与下载链接 -->
+    <section class="content-section">
+      <div class="section-container">
+        <div class="access-metrics-card">
+          <div class="metrics-section">
+            <div class="metrics-grid-small" id="metricsGrid">
+              <article class="metric-card-small">
+                <div class="metric-label" >Total Views</div>
+                <div class="metric-value" data-counter-key="totalViews" data-counter-fallback="1747468"></div>
+                <div class="metric-field">total_views</div>
+              </article>
+              <article class="metric-card-small">
+                <div class="metric-label" >Total Project Requests</div>
+                <div class="metric-value" data-counter-key="totalRequests" data-counter-fallback="104769654"></div>
+                <div class="metric-field">total_requests</div>
+              </article>
+              <article class="metric-card-small">
+                <div class="metric-label" >Total HarmonyOS App Requests</div>
+                <div class="metric-value" data-counter-key="harmonyTotalRequests" data-counter-fallback="1106950"></div>
+                <div class="metric-field">hm_total_requests</div>
+              </article>
+              <article class="metric-card-small">
+                <div class="metric-label" >Today's Requests</div>
+                <div class="metric-value" data-counter-key="todayRequests" data-counter-fallback="802067"></div>
+                <div class="metric-field">today_requests</div>
+              </article>
+            </div>
+            <div class="metrics-note" >* Data statistics range from 2025-11-01T04:00:00Z to present. Auto-update failed! Last update {{updateTime}}.</div>
+          </div>
+
+          <div class="download-section">
+            <div class="platform-grid">
+              <a class="platform-btn platform-web" data-link="siteS" href="#" target="_blank" rel="noopener">
+                  <img class="platform-icon-img" data-platform-icon="web" alt="">
+                <span class="platform-main" >Browser<br>Site S</span>
+              </a>
+              <a class="platform-btn platform-web" data-link="siteT" href="#" target="_blank" rel="noopener">
+                  <img class="platform-icon-img" data-platform-icon="web" alt="">
+                <span class="platform-main" >Browser<br>Site T</span> 
+              </a>
+              <a class="platform-btn platform-web" data-link="egui" href="#" target="_blank" rel="noopener">
+                  <img class="platform-icon-img" data-platform-icon="web" alt="">
+                <span class="platform-main" >Browser<br>Egui</span>
+              </a>
+              <a class="platform-btn platform-primary" data-link="harmony" href="#" target="_blank" rel="noopener">
+                  <img class="platform-icon-img" data-platform-icon="harmony" alt="">
+                <span class="platform-main" >HarmonyOS<br>(Beta)</span>
+              </a>
+              <button class="platform-btn platform-disabled platform-android" type="button" aria-disabled="true">
+                  <img class="platform-icon-img" data-platform-icon="android" alt="">
+                <span class="platform-main" >Android<br>(Not Live)</span> 
+              </button>
+              <button class="platform-btn platform-disabled platform-ios" type="button" aria-disabled="true">
+                  <img class="platform-icon-img" data-platform-icon="apple" alt="">
+                <span class="platform-main" >Apple<br>(Not Live)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第三部分：详细信息 -->
+    <section class="content-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 >Detailed Introduction</h2>
+          <p >The following content focuses on project goals, core capabilities, and technical architecture.</p>
+        </div>
+
+        <div class="details-grid">
+          <div class="details-main">
+            <div class="info-card">
+              <div class="card-header">
+                <span class="card-number">01</span>
+                <h3 >What Does This Project Do</h3>
+              </div>
+              <div class="card-body">
+                <p >This project is developed by the Harmony Dashboard team, covering multiple platforms including the HarmonyOS app and web frontends. It collects public data from the Huawei AppMarket and transforms it into intuitive charts and reports. Simply put, you can view the dynamics of almost all HarmonyOS apps here.</p>
+                <p >1. Data Overview & Chart Analysis: View app downloads, rating trends, and market distribution intuitively through rankings, pie charts, and line charts.</p>
+                <p >2. Search Apps & View Details: Support searching and sorting by name, rating, etc.; in-app search; share link search. You can view various app data and trend charts.</p>
+                <p >3. Scheduled Auto-Update: Data is synced every 30 minutes in the background, ensuring you always get the latest data.</p>
+                <p >4. Interactive Operations & Sharing: Click charts for data filtering, click apps to enter detail pages; you can also conveniently share app pages via links, air grab, or HarmonyOS tap-to-share.</p>
+                <p >5. Contribute & Update App Info: You can contribute to the app dashboard via AppMarket sharing and the "Me" page, helping submit new apps or update app information.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-header">
+                <span class="card-number">02</span>
+                <h3 >Web Core Features</h3>
+              </div>
+              <div class="card-body">
+                <ul class="detail-list">
+                  <li >1. Data Statistics: Display statistical data for key indicators such as total number of apps, total atomic services, and total developers.</li>
+                  <li >2. Download Rankings: Provide a list of the top 20 apps by downloads, as well as download rankings excluding Huawei apps.</li>
+                  <li >3. App Details: Click any app-related icon to view detailed app information, including downloads, ratings, supported devices, version info, etc.</li>
+                  <li >4. Trend Analysis: Display charts of app download change trends and incremental trends.</li>
+                  <li >5. App List: Detailed app information table with search, sorting, and filtering capabilities.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <aside class="details-sidebar">
+            <div class="note-card">
+              <div class="note-icon">⚠️</div>
+              <h3 >Important Notes</h3>
+              <ul class="note-list">
+                <li >Architecture Limitation: Data content only covers the HarmonyOS 5+ core environment, excluding sideloaded or enterprise-customized apps.</li>
+                <li >Update Delay: Data may be lagging. Sync quality is limited by user network stability. The project team does not guarantee real-time accuracy of information.</li>
+                <li >Disclaimer: All data is calculated by third parties and does not represent Huawei's official position!</li>
+                <li >Intellectual Property: Algorithms are original. Commercial use is strictly prohibited. Please contact us before using the API to connect to the database.</li>
+                <li >Dynamic Adjustment: The project team reserves the right of final interpretation of the statistical methodology and data standards, and the right to modify algorithm logic without prior notice.</li>
+              </ul>
+            </div>
+
+            <div class="highlight-card harmony-card">
+              <div class="highlight-icon">🎨</div>
+              <h3 >HarmonyOS Version Highlights</h3>
+              <p class="highlight-summary" >Native Capabilities & Cross-Device Experience</p>
+              <ul class="highlight-list">
+                <li >HarmonyOS Intelligence: AI information extraction assistance, supports sharing from in-app AppMarket to dashboard for querying and contributing apps.</li>
+                <li >HarmonyOS Connectivity: Native HarmonyOS interactive experience. Supports app continuation, link sharing, tap-to-share, and air transfer, facilitating cross-device page dissemination.</li>
+                <li >HarmonyOS Aesthetics: Premium texture, fluid interactions, light field effects, adapted to the latest API23 immersive materials and half-modal blur.</li>
+                <li >HarmonyOS Smoothness: Multi-threaded concurrency, no third-party libraries, native ArkTS smoothness.</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第四部分：技术架构与数据库 -->
+    <section class="content-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 >Technology Stack</h2>
+          <p >The project adopts a modern tech stack, ensuring high performance, high availability, and maintainability</p>
+        </div>
+
+        <div class="tech-two-columns">
+          <div class="tech-column">
+            <div class="tech-detail-block">
+              <h3 >Backend (Rust)</h3>
+              <p class="tech-summary" >Rust tech stack implementing data aggregation, API exposure, database access, and server-side capability orchestration</p>
+              <ul class="tech-list">
+                <li >Rust 2024 Edition: Memory safety, zero-cost abstractions, high performance</li>
+                <li >Axum 0.8: Type-safe web framework, ergonomic API design</li>
+                <li >Tokio 1.47: Async runtime, efficient concurrent processing</li>
+                <li >SQLx 0.8: Compile-time SQL checks, type-safe database operations</li>
+                <li >Reqwest 0.12: HTTP client, supports connection pooling and auto-retry</li>
+                <li >Serde + TOML: Serialization/deserialization, configuration management</li>
+                <li >Tracing: Structured logging and performance tracking</li>
+                <li >Tower HTTP Compression: Brotli, Gzip, Deflate, Zstd</li>
+              </ul>
+            </div>
+
+            <div class="tech-detail-block">
+              <h3 >Database (PostgreSQL)</h3>
+              <p class="tech-summary" >PostgreSQL 12+ (14+ recommended), powerful relational database</p>
+              <ul class="tech-list">
+                <li >Tables: app_info, app_metrics, app_rating, app_raw, substance, etc.</li>
+                <li >Triggers: Automated data updates and consistency maintenance</li>
+                <li >Index Optimization: Query performance enhancement</li>
+                <li >Foreign Key Cascades: Data integrity guarantees</li>
+                <li >JSON Fields: Flexible data structure support</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tech-column">
+            <div class="tech-detail-block">
+              <h3 >Web Frontend</h3>
+              <div class="tech-subsection">
+                <h4 >S Site Frontend</h4>
+                <ul class="tech-list">
+                  <li >Native JavaScript: No framework dependencies, lightweight and efficient</li>
+                  <li >Chart.js + Date-fns: Data visualization</li>
+                  <li >Markdown-it: Markdown rendering</li>
+                  <li >Responsive Design: Mobile adaptation</li>
+                </ul>
+              </div>
+              <div class="tech-subsection">
+                <h4 >T Site Frontend</h4>
+                <ul class="tech-list">
+                  <li >Vue.js: Progressive frontend framework</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tech-detail-block">
+              <h3 >HarmonyOS Frontend</h3>
+              <ul class="tech-list">
+                <li >ArkTS: HarmonyOS application development language</li>
+                <li >ArkUI: Declarative UI framework</li>
+                <li >ArkWeb: Web container integration</li>
+                <li >Stage Model: Modern engineering model</li>
+                <li >Hvigor: Build toolchain</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 数据库接入板块 -->
+    <section class="content-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 >Database Access</h2>
+          <p class="intro-text" >The Harmony Dashboard team provides HarmonyOS app market data query, statistical analysis, and other functional interfaces. Projects in need are welcome to integrate with our database.</p>
+        </div>
+
+        <div class="integration-layout">
+          <div class="integration-left">
+            <h3 >Integration Cases · Friendly Links</h3>
+            <div class="integration-cases-vertical">
+              <a class="case-item" data-link="accountDL" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >Remember to Subscribe App</div>
+                  <div class="case-subtitle" >Uses database to get subscribed app icons.</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+              <a class="case-item" data-link="zhiyu" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >PaperTalk App</div>
+                  <div class="case-subtitle" >Uses database to get app icons.</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+              <a class="case-item" data-link="hdc" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >HAP Resource Station</div>
+                  <div class="case-subtitle" >Website data uses database</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+              <a class="case-item" data-link="nextStore" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >NEXT Store</div>
+                  <div class="case-subtitle" >Website data uses database</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+              <a class="case-item" data-link="dztap" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >AppGallery Catalog</div>
+                  <div class="case-subtitle" >Website data uses database</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+              <a class="case-item" data-link="openStore" href="#" target="_blank" rel="noopener">
+                <div class="case-content">
+                  <div class="case-title" >Open Store</div>
+                  <div class="case-subtitle" >Website data uses database</div>
+                </div>
+                <div class="case-link-icon">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="integration-right">
+            <div class="integration-warning">
+              <h3 >⚠️ Important Notice</h3>
+              <p >You must inform us before integrating with the database, otherwise it may violate the open source license.</p>
+              <p >Users must not store obtained information locally in its original form.</p>
+              <p >Any content displayed on friendly-linked websites is unrelated to the HarmonyOS App Dashboard. The Harmony Dashboard project team is not responsible for maintaining friendly link content.</p>
+            </div>
+
+            <div class="api-section">
+              <h3 >API Documentation</h3>
+              <p >View complete API documentation to understand data integration methods
+If you are interested in using our database, please contact us first!</p>
+              <div class="api-buttons">
+                <a class="api-btn" data-link="apiDocs" href="#" target="_blank" rel="noopener" >View API Docs</a>
+                <a class="api-btn api-btn-secondary" href="#contact-us" >Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="content-section" id="contact-us">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 >Contact Us</h2>
+          <p >Thanks to all developers and partners who contributed to the project</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-team">
+            <h3><a href="#contact-us" class="team-title-link" >Harmony Dashboard Team</a></h3>
+            <div class="team-grid">
+              <div class="team-item">
+                <div class="team-name" >shenjack</div>
+                <div class="team-contact" >Email: 3695888@qq.com</div>
+                <div class="team-role" >Principal</div>
+              </div>
+              <div class="team-item">
+                <div class="team-name" >清霁·Rayawa</div>
+                <div class="team-contact" >Email: rayawa.work@outlook.com</div>
+                <div class="team-role" >HarmonyOS App Development, Website Production</div>
+              </div>
+              <div class="team-item">
+                <div class="team-name" >tianxiu2b2t</div>
+                <div class="team-contact" >Email: administrator@ttb-network.top</div>
+                <div class="team-role" >T Site Web Lead</div>
+              </div>
+              <div class="team-item">
+                <div class="team-name" >Harmony Dashboard Official Communication Group</div>
+                <div class="team-contact">
+                  <a data-link="qqGroup" href="#" target="_blank" rel="noopener" class="qq-link">
+                    <span >Group ID: 757273833</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+                <div class="team-role" >QQ Group</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="acknowledgments-section">
+              <h3 >Acknowledgments</h3>
+              <ul class="acknowledgments-list">
+                <li >Project Thanks: 伤心萨摩耶, HEZI641</li>
+                <li >HarmonyOS App Thanks: 筱冉, 音唯Artix</li>
+                <li >Thanks to Huawei Developer Alliance for technical support</li>
+              </ul>
+            </div>
+
+            <div class="license-section">
+              <h3 >License</h3>
+              <a href="https://opensource.org/licenses/GPL-3.0" target="_blank" rel="noopener" class="license-badge-link">
+                <div class="license-badge">
+                  <span class="license-name" >GPL-3.0 License</span>
+                </div>
+              </a>
+              <p class="license-desc" >This project is open-sourced under GPL-3.0 License, allowing free use, modification, and distribution, but derivative works must use the same license</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025-2026 Harmony Dashboard Team &middot; <a href="https://opensource.org/licenses/GPL-3.0" target="_blank" rel="noopener">GPL-3.0 License</a></p>
+  </footer>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+(function() {
+  var mobileBtn = document.getElementById('mobileMenuBtn');
+  var navContainer = document.getElementById('navContainer');
+  if (mobileBtn && navContainer) {
+    mobileBtn.addEventListener('click', function() {
+      navContainer.classList.toggle('open');
+    });
+  }
+
+  if (typeof particlesJS !== 'undefined') {
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 40, density: { enable: true, value_area: 900 } },
+        color: { value: '#38bdf8' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.15, random: true },
+        size: { value: 2, random: true },
+        line_linked: { enable: true, distance: 150, color: '#38bdf8', opacity: 0.08, width: 1 },
+        move: { enable: true, speed: 0.8, direction: 'none', random: true, out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+      },
+      retina_detect: true
+    });
+  }
+
+  var sections = document.querySelectorAll('.dashboard-page .hero-section, .dashboard-page .content-section');
+  if (sections.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(function(s) { observer.observe(s); });
+  } else {
+    sections.forEach(function(s) { s.classList.add('reveal-in'); });
+  }
+})();
+</script>
+  <script src="../dashboard.js"></script>
+  <script data-goatcounter="https://rayawa.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
