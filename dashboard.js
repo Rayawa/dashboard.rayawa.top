@@ -54,8 +54,8 @@
     var API_BASE = 'https://ddns.shenjack.top:10003';
 
    var mockData = {
-    totalViews: 1777777,
-    totalRequests: 112193629, harmonyTotalRequests: 1282864, todayRequests: 802067,
+    totalViews: 2447706,
+    totalRequests: 129585042, harmonyTotalRequests: 1541184, todayRequests: 802067,
 };
 
 var updateTime = '2026-04-25T06:51:22Z';
