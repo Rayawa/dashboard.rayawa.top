@@ -55,7 +55,7 @@
 
    var mockData = {
     totalViews: 2447706,
-    totalRequests: 129585042, harmonyTotalRequests: 1541184, todayRequests: 802067,
+    totalRequests: 129585042, harmonyTotalRequests: 1541184, todayRequests: 85518,
 };
 
 var updateTime = '2026-04-25T06:51:22Z';
@@ -80,11 +80,12 @@ function fetchStatistics() {
         };
         var data = {
             totalViews: mockData.totalViews,
-            totalRequests: parseValue(results[0]),
-            harmonyTotalRequests: parseValue(results[1]),
-            todayRequests: parseValue(results[2]),
+            totalRequests: parseValue(results[0]) || mockData.totalRequests,
+            harmonyTotalRequests: parseValue(results[1]) || mockData.harmonyTotalRequests,
+            todayRequests: parseValue(results[2]) || mockData.todayRequests,
         };
         console.log("================ 统计数据同步成功 (口径: 聚合表) ================");
+        console.log("总访问量 (mock):", mockData.totalViews);
         console.log("总请求量 (Total):", data.totalRequests);
         console.log("今日请求 (Today):", data.todayRequests);
         console.log("鸿蒙专项 (Harmony):", data.harmonyTotalRequests);
