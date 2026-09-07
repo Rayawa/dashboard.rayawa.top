@@ -235,7 +235,7 @@
       <div class="section-container">
         <div class="section-header">
           <h2 >Detailed Introduction</h2>
-          <p >The following content focuses on project goals, core capabilities, and technical architecture.</p>
+          <p >This overview covers the native 3.0.0 client, its data strategy, and its device experience.</p>
         </div>
 
         <div class="details-grid">
@@ -243,15 +243,12 @@
             <div class="info-card">
               <div class="card-header">
                 <span class="card-number">01</span>
-                <h3 >What Does This Project Do</h3>
+                <h3 >Native HarmonyOS Client</h3>
               </div>
               <div class="card-body">
-                <p >This project is developed by the Harmony Dashboard team, covering multiple platforms including the HarmonyOS app and web frontends. It collects public data from the Huawei AppMarket and transforms it into intuitive charts and reports. Simply put, you can view the dynamics of almost all HarmonyOS apps here.</p>
-                <p >1. Data Overview & Chart Analysis: View app downloads, rating trends, and market distribution intuitively through rankings, pie charts, and line charts.</p>
-                <p >2. Search Apps & View Details: Support searching and sorting by name, rating, etc.; in-app search; share link search. You can view various app data and trend charts.</p>
-                <p >3. Scheduled Auto-Update: Data is synced every 30 minutes in the background, ensuring you always get the latest data.</p>
-                <p >4. Interactive Operations & Sharing: Click charts for data filtering, click apps to enter detail pages; you can also conveniently share app pages via links, air grab, or HarmonyOS tap-to-share.</p>
-                <p >5. Contribute & Update App Info: You can contribute to the app dashboard via AppMarket sharing and the "Me" page, helping submit new apps or update app information.</p>
+                <p >Dashboard is the native HarmonyOS client for <code>harmony_get_market</code>. Version 3.0.0 targets HarmonyOS 6.1 (API 23) on phones, tablets, and 2-in-1 devices. It reads market data through the unified <code>/api/v0</code> API and keeps an ArkWeb entry to the S site.</p>
+                <p>Four fixed sections organize the app: S site, Home, Details, and Me. Home shows apps, atomic services, and recent additions; Details adds overview/table views, search, filtering, sorting, and paging. Every entry uses one native details template for information, screenshots, descriptions, and download/rating trends.</p>
+                <p>The S site is preheated and cached at launch. It can share its current page, supports tap-to-share and air transfer, and restores the active section, detail state, and scroll position when continuing on another device.</p>
               </div>
             </div>
 
@@ -440,6 +437,10 @@
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </div>
               </a>
+              <a class="case-item" data-link="getrace" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Getrace</div><div class="case-subtitle">App using Harmony Dashboard data</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="subscriptionAtomic" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Remember Subscription (Atomic Service)</div><div class="case-subtitle">Atomic service using Harmony Dashboard data</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="fangzhou" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Fangzhou</div><div class="case-subtitle">Site using Harmony Dashboard data</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="appGalleryStats" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">AppGallery Statistics</div><div class="case-subtitle">Other site</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
             </div>
           </div>
 

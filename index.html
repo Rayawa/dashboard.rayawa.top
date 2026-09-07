@@ -236,7 +236,7 @@
       <div class="section-container">
         <div class="section-header">
           <h2 >详细介绍</h2>
-          <p >以下内容聚焦项目目标、核心能力与技术架构。</p>
+          <p >以下内容介绍 3.0.0 原生客户端的页面结构、数据策略与设备体验。</p>
         </div>
 
         <div class="details-grid">
@@ -244,30 +244,27 @@
             <div class="info-card">
               <div class="card-header">
                 <span class="card-number">01</span>
-                <h3 >项目是做什么的</h3>
+                <h3 >HarmonyOS 原生客户端</h3>
               </div>
               <div class="card-body">
-                <p >本项目由Harmony Dashboard项目组开发，涵盖鸿蒙应用、网页端等多平台。项目收集华为应用市场的公开数据，转化为直观的图表与报告。简单来说，您能在这里查看几乎所有鸿蒙应用的动态。</p>
-                <p >1. 数据总览与图表分析：通过榜单、饼图与折线图，直观查看应用下载量、评分趋势与市场分布。</p>
-                <p >2. 搜索应用与查看详情：支持按名称、评分等条件搜索排序、应用内搜索应用、分享链接搜索应用。您可查看各种应用数据与趋势图。</p>
-                <p >3. 数据定时自动更新：后台每30分钟同步一次数据，确保您始终获取最新数据。</p>
-                <p >4. 交互式操作与分享：点击图表可进行数据筛选，点击应用可进入详情页；您也可通过链接、隔空抓取或鸿蒙碰一碰便捷分享应用页面。</p>
-                <p >5. 投稿更新应用信息：您可通过应用市场分享与"我的"页面向应用看板投稿，协助投稿新应用或更新应用信息。</p>
+                <p >Dashboard 应用看板是 <code>harmony_get_market</code> 的 HarmonyOS 原生客户端，当前为 3.0.0，面向 HarmonyOS 6.1（API 23）的手机、平板与二合一设备。它通过统一的 <code>/api/v0</code> 接口读取市场数据，并保留 S 站的 ArkWeb 入口。</p>
+                <p >主界面由四个固定栏目组成：S 站、首页、详情和“我的”。首页展示应用、元服务与最近收录；详情页提供概况和总表切换、搜索、字段筛选、排序与分页；所有入口复用同一原生详情模板，集中呈现应用信息、截图、介绍与下载量／评分趋势。</p>
+                <p >S 站会在启动时预热并缓存网页，可分享当前地址，并支持碰一碰、隔空传送和跨设备接续。原生详情也会生成带应用图标的分享卡片；接续时会恢复当前栏目、详情子视图与滚动位置。</p>
               </div>
             </div>
 
             <div class="info-card">
               <div class="card-header">
                 <span class="card-number">02</span>
-                <h3 >网页端核心功能</h3>
+                <h3 >可靠的数据访问体验</h3>
               </div>
               <div class="card-body">
                 <ul class="detail-list">
-                  <li >1. 数据统计：展示应用总数、元服务总数、开发者总数等关键指标的统计数据。</li>
-                  <li >2. 下载榜：提供下载量排名前20的应用列表，以及排除华为系应用后的下载量排名。</li>
-                  <li >3. 应用详情：点击任意应用相关图标查看应用的详细信息，包括下载量、评分、支持设备、版本信息等。</li>
-                  <li >4. 趋势分析：展示应用下载量的变化趋势和增量趋势图表。</li>
-                  <li >5. 应用列表：详细应用信息表格，支持搜索、排序、筛选功能。</li>
+                  <li >统一 API 客户端：业务页面不各自拼接网络请求，全部使用一致的应用标识与错误处理。</li>
+                  <li >分层缓存：首页缓存 5 分钟、列表 2 分钟、详情与图表 30 分钟；有效缓存可直接读取，减少启动与切页等待。</li>
+                  <li >弱网回退：缓存失效后才访问网络；请求失败时最多可使用 30 天内的旧缓存，并明确标示离线缓存与缓存时间。</li>
+                  <li >可控清理：清除缓存会移除 API 文件、ArkWeb 存储和 Cookie，同时保留用户名及偏好设置，并显示缓存占用。</li>
+                  <li >响应式与无障碍：按 600vp、840vp 断点调整布局；核心控件、图表和提示均提供辅助功能文本。</li>
                 </ul>
               </div>
             </div>
@@ -278,23 +275,22 @@
               <div class="note-icon">⚠️</div>
               <h3 >重要提示</h3>
               <ul class="note-list">
-                <li >架构限制：数据内容仅覆盖HarmonyOS 5+核心环境，不含侧载或企业定制版应用。</li>
-                <li >更新延迟：数据存在滞后性，同步质量受限于用户网络稳定性，项目组不保证信息的即时性。</li>
-                <li >免责申明：所有数据由第三方测算，不代表华为官方立场！</li>
-                <li >知识产权：算法原创，严禁商用。使用API对接数据库前请先与我们取得联系。</li>
-                <li >动态调整：本项目组拥有对本统计方法论及数据口径的最终解释权，保留在不预先通知的情况下修正算法逻辑的权利。</li>
+                <li >市场数据来自网络，仅供参考；不保证来源的准确性、完整性或实时性。</li>
+                <li >应用会使用设备信息生成请求 User-Agent，并包含匿名运行遥测；具体处理以应用内隐私政策为准。</li>
+                <li >缓存状态会在界面中明确呈现，离线数据不应被视为实时结果。</li>
+                <li >API 接入前请先联系项目组；取得的信息不得在本地原样存储。</li>
               </ul>
             </div>
 
             <div class="highlight-card harmony-card">
               <div class="highlight-icon">🎨</div>
               <h3 >鸿蒙版本特色</h3>
-              <p class="highlight-summary" >原生能力与跨设备体验</p>
+              <p class="highlight-summary" >原生页面、跨设备接续与细致的系统交互</p>
               <ul class="highlight-list">
-                <li >HarmonyOS智能：AI信息提取辅助，支持从应用内应用市场分享到看板查询投稿应用。</li>
-                <li >HarmonyOS互联：鸿蒙原生交互体验。支持应用接续、链接分享、碰一碰与隔空传送，便于页面的跨设备传播。</li>
-                <li >HarmonyOS美学：高级质感、气态交互、光场视效，适配最新API23沉浸式材质与半模态模糊。</li>
-                <li >HarmonyOS流畅：多线程并发、无第三方库，ArkTS原生流畅。</li>
+                <li >全原生浏览：ArkTS + ArkUI 构建首页、搜索、总表与详情；S 站仅作为 ArkWeb 入口保留。</li>
+                <li >连续体验：统一恢复主栏目、详情状态和滚动位置，S 站和详情页可分享、碰一碰与隔空传送。</li>
+                <li >系统化交互：支持深浅色、高级材质、半模态联系面板、下拉刷新和可配置的触觉反馈。</li>
+                <li >稳健易用：网络、文件、分享和可选设备能力均有回退处理，界面为关键内容提供无障碍描述。</li>
               </ul>
             </div>
           </aside>
@@ -365,9 +361,9 @@
               <ul class="tech-list">
                 <li >ArkTS：鸿蒙应用开发语言</li>
                 <li >ArkUI：声明式 UI 框架</li>
-                <li >ArkWeb：Web 容器集成</li>
-                <li >Stage Model：现代化工程模型</li>
-                <li >Hvigor：构建工具链</li>
+                <li >ArkUI + HDS：原生导航、固定标签与响应式页面</li>
+                <li >ArkWeb：预热、缓存与 S 站入口</li>
+                <li >Stage Model + Hvigor：API 23 工程与构建工具链</li>
               </ul>
             </div>
           </div>
@@ -387,60 +383,16 @@
           <div class="integration-left">
             <h3 >接入案例 · 友情链接</h3>
             <div class="integration-cases-vertical">
-              <a class="case-item" data-link="accountDL" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >记得订阅 App</div>
-                  <div class="case-subtitle" >使用数据库获取App图标用于订阅管理。</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
-              <a class="case-item" data-link="zhiyu" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >纸语 App</div>
-                  <div class="case-subtitle" >使用数据库获取App图标。</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
-              <a class="case-item" data-link="hdc" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >HAP 资源站</div>
-                  <div class="case-subtitle" >网站数据使用数据库</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
-              <a class="case-item" data-link="nextStore" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >NEXT Store</div>
-                  <div class="case-subtitle" >网站数据使用数据库</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
-              <a class="case-item" data-link="dztap" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >AppGallery应用荟萃</div>
-                  <div class="case-subtitle" >网站数据使用数据库</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
-              <a class="case-item" data-link="openStore" href="#" target="_blank" rel="noopener">
-                <div class="case-content">
-                  <div class="case-title" >Open Store</div>
-                  <div class="case-subtitle" >网站数据使用数据库</div>
-                </div>
-                <div class="case-link-icon">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </div>
-              </a>
+              <a class="case-item" data-link="getrace" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">迹得</div><div class="case-subtitle">使用 Harmony Dashboard 数据的应用</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="subscription" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">记得订阅</div><div class="case-subtitle">使用 Harmony Dashboard 数据的应用</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="subscriptionAtomic" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">记得订阅（元服务）</div><div class="case-subtitle">使用 Harmony Dashboard 数据的元服务</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="paperTalk" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">纸语</div><div class="case-subtitle">使用 Harmony Dashboard 数据的应用</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="hapStore" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Hap 资源站</div><div class="case-subtitle">使用 Harmony Dashboard 数据的站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="dztap" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">应用荟萃</div><div class="case-subtitle">使用 Harmony Dashboard 数据的站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="openStore" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Open Store</div><div class="case-subtitle">使用 Harmony Dashboard 数据的站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="nextStore" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">NEXT Store</div><div class="case-subtitle">使用 Harmony Dashboard 数据的站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="fangzhou" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">方舟网</div><div class="case-subtitle">使用 Harmony Dashboard 数据的站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="appGalleryStats" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">AppGallery 统计数据</div><div class="case-subtitle">其他站点</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
             </div>
           </div>
 

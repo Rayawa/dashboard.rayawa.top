@@ -7,12 +7,19 @@
     };
 
     var FRIENDLY_LINKS = {
+        getrace: 'https://appgallery.huawei.com/app/detail?id=cn.biandangroup.getrace',
+        subscription: 'https://appgallery.huawei.com/app/detail?id=com.xxtstudio.accountDL',
+        subscriptionAtomic: 'https://appgallery.huawei.com/app/detail?id=com.atomicservice.6917600885144283966',
+        paperTalk: 'https://appgallery.huawei.com/app/detail?id=com.my.papertalk',
+        hapStore: 'https://sydxky.cn/',
+        nextStore: 'https://next.vcck.cn/#/',
+        dztap: 'https://home.dztap.com/index',
+        openStore: 'https://next.betahub.tech/',
+        fangzhou: 'https://fangzhou.club/',
+        appGalleryStats: 'https://appgallery.info/index.html',
         accountDL: 'https://appgallery.huawei.com/app/detail?id=com.xxtstudio.accountDL',
         zhiyu: 'https://appgallery.huawei.com/app/detail?id=com.my.papertalk',
-        hdc: 'https://hdc.osbdf.com/',
-        nextStore: 'https://next.vcck.cn/#/',
-        dztap: 'https://dztap.com/app.html',
-        openStore: 'https://next.betahub.tech/',
+        hdc: 'https://sydxky.cn/',
     };
 
     var OTHER_LINKS = {
@@ -54,7 +61,7 @@
     var API_BASE = 'https://ddns.shenjack.top:10003';
 
    var mockData = {
-    totalViews: 2447706,
+    totalViews: 2472919,
     totalRequests: 129585042, harmonyTotalRequests: 1541184, todayRequests: 85518,
 };
 

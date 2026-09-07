@@ -234,7 +234,7 @@
       <div class="section-container">
         <div class="section-header">
           <h2 >Introduction Détaillée</h2>
-          <p >Le contenu suivant se concentre sur les objectifs du projet, les capacités de base et l'architecture technique.</p>
+          <p >Cette présentation couvre le client natif 3.0.0, sa stratégie de données et son expérience multi-appareils.</p>
         </div>
 
         <div class="details-grid">
@@ -242,15 +242,12 @@
             <div class="info-card">
               <div class="card-header">
                 <span class="card-number">01</span>
-                <h3 >À quoi Sert ce Projet</h3>
+                <h3 >Client HarmonyOS natif</h3>
               </div>
               <div class="card-body">
-                <p >Ce projet est développé par l'équipe Harmony Dashboard, couvrant plusieurs plateformes dont l'application HarmonyOS et les interfaces web. Il collecte les données publiques du marché des applications Huawei et les transforme en graphiques et rapports intuitifs. En bref, vous pouvez consulter ici la dynamique de presque toutes les applications HarmonyOS.</p>
-                <p >1. Aperçu des Données & Analyse Graphique : Consultez intuitivement les téléchargements, les tendances de notation et la distribution du marché via des classements, des graphiques circulaires et des graphiques linéaires.</p>
-                <p >2. Rechercher des Apps & Voir les Détails : Prise en charge de la recherche et du tri par nom, notation, etc. ; recherche in-app ; recherche par lien de partage. Vous pouvez consulter diverses données d'application et graphiques de tendance.</p>
-                <p >3. Mise à Jour Automatique Planifiée : Les données sont synchronisées toutes les 30 minutes en arrière-plan, vous garantissant toujours les données les plus récentes.</p>
-                <p >4. Opérations Interactives & Partage : Cliquez sur les graphiques pour filtrer les données, cliquez sur les applications pour accéder aux pages de détail ; vous pouvez également partager facilement les pages d'application via des liens, la saisie en l'air ou le tap-to-share HarmonyOS.</p>
-                <p >5. Contribuer & Mettre à Jour les Infos : Vous pouvez contribuer au tableau de bord des applications via le partage AppMarket et la page "Moi", en aidant à soumettre de nouvelles applications ou à mettre à jour les informations des applications.</p>
+                <p>Dashboard est le client HarmonyOS natif de <code>harmony_get_market</code>. La version 3.0.0 cible HarmonyOS 6.1 (API 23) sur téléphones, tablettes et appareils 2-en-1. Elle charge les données via l'API <code>/api/v0</code> et conserve une entrée ArkWeb vers le site S.</p>
+                <p>Quatre rubriques fixes structurent l'application : site S, accueil, détails et moi. L'accueil présente les applications, services atomiques et ajouts récents ; les détails proposent vue d'ensemble/tableau, recherche, filtres, tri et pagination avec un modèle natif commun.</p>
+                <p>Le site S est préchargé et mis en cache au lancement. Il prend en charge le partage, le transfert aérien et la continuité entre appareils, en restaurant la rubrique active, l'état des détails et la position de défilement.</p>
               </div>
             </div>
 
@@ -439,6 +436,10 @@
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </div>
               </a>
+              <a class="case-item" data-link="getrace" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Getrace</div><div class="case-subtitle">Application utilisant les données Harmony Dashboard</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="subscriptionAtomic" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">N'oubliez pas de vous abonner (service atomique)</div><div class="case-subtitle">Service atomique utilisant les données Harmony Dashboard</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="fangzhou" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Fangzhou</div><div class="case-subtitle">Site utilisant les données Harmony Dashboard</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
+              <a class="case-item" data-link="appGalleryStats" href="#" target="_blank" rel="noopener"><div class="case-content"><div class="case-title">Statistiques AppGallery</div><div class="case-subtitle">Autre site</div></div><div class="case-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div></a>
             </div>
           </div>
 
