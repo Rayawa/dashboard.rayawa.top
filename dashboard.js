@@ -3,7 +3,7 @@
         siteS: 'https://shenjack.top:10003/dashboard',
         siteT: 'https://hmos.txit.top/dashboard',
         egui: 'https://shenjack.top:10003/egui/',
-        harmony: 'https://appgallery.huawei.com/link/invite-test-wap?taskId=a5642d0a46ffb94c995854e266ce5a32&invitationCode=6InxnHS4xhN',
+        harmony: 'https://appgallery.huawei.com/apptest/6jFjJQD5dZa',
     };
 
     var FRIENDLY_LINKS = {
